@@ -43,3 +43,27 @@ class MyPlugin extends CordlrPlugin {
 ```
 
 More examples in the documentation (coming soon)
+
+## Short Docs
+
+#### sendReply
+```js
+CordlrPlugin.sendReply(message, 'My message')
+```
+
+#### sendPrivateReply
+```js
+CordlrPlugin.sendPrivateReply(message, 'My private message')
+```
+
+#### sendEmbeds
+```js
+CordlrPlugin.sendReply(message, 'My message', [
+  {
+    // embed data (see Discord API)
+  },
+  {
+    // embed data (see Discord API)
+  }
+])
+```
