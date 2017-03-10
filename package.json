@@ -1,0 +1,24 @@
+{
+  "name": "cordlr-plugin",
+  "version": "0.0.1",
+  "description": "Cordlr plugin core to extend new plugins from.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Devcord/cordlr-plugin.git"
+  },
+  "keywords": [
+    "cordlr",
+    "plugin",
+    "core"
+  ],
+  "author": "Devcord",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Devcord/cordlr-plugin/issues"
+  },
+  "homepage": "https://github.com/Devcord/cordlr-plugin#readme"
+}
