@@ -1,6 +1,6 @@
 {
   "name": "cordlr-plugin",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Cordlr plugin core to extend new plugins from.",
   "main": "index.js",
   "scripts": {
@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/Devcord/cordlr-plugin/issues"
   },
-  "homepage": "https://github.com/Devcord/cordlr-plugin#readme"
+  "homepage": "https://github.com/Devcord/cordlr-plugin#readme",
+  "dependencies": {
+    "hex-to-dec": "^1.0.1"
+  }
 }

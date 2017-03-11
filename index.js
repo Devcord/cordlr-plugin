@@ -1,3 +1,5 @@
+const hexToDec = require('hex-to-dec');
+
 class CordlrPlugin {
   constructor (bot, config) {
     this.bot = bot
@@ -29,6 +31,31 @@ class CordlrPlugin {
         fields: fields
       }
     }, reply)
+  }
+
+  sendInfo (message, info, title = 'Info', footer = null, type = 'default') {
+    const channel = message.channel
+    
+    switch (type) {
+      case 'warning':
+        color = this.colorToDecimal('#fff83d')
+        break
+      case 'error':
+        color = this.colorToDecimal('#fc5246')
+        break
+      case 'success':
+        color = this.colorToDecimal('#36c17e')
+        break
+      default:
+        color = this.colorToDecimal('#7289DA')
+
+      channel.sendEmbed({
+        title: title,
+        footer: footer,
+        color: color,
+        description: info
+      })
+    }
   }
 
   embedField (name, value = '', inline = false) {
@@ -148,6 +175,11 @@ class CordlrPlugin {
     }
 
     return false
+  }
+
+  colorToDecimal (color) {
+    const hexValue = color.replace('#', '')
+    return hexToDec(hexValue)
   }
 }
 
