@@ -93,6 +93,7 @@ class CordlrPlugin {
    */
   sendInfo (message, info, title = 'Info', footer = null, type = 'default') {
     const channel = message.channel
+    let color = null
     
     switch (type) {
       case 'warning':
