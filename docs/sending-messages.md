@@ -19,10 +19,9 @@ Sends a reply back mentioning the message author appending a embed to the messag
 
 **Parameters**
 * `message` (object) - The Discord.js message object
-* `reply` (string) - Reply text send out to the user
 * `embed` (object) - [Embed object](https://discordapp.com/developers/docs/resources/channel#embed-object)
 
-## sendFields (message, fields, *title*, *footer*, *reply*)
+## sendFields (message, fields, *title*, *footer*)
 Sends a message back including a embed containing multiple fields
 
 **Parameters**
@@ -30,7 +29,6 @@ Sends a message back including a embed containing multiple fields
 * `fields` (array) - Array of [Embed Fields](https://discordapp.com/developers/docs/resources/channel#embed-object)
 * `title` (string) - Embed title (optional)
 * `footer` (object) - [Embed Footer](https://discordapp.com/developers/docs/resources/channel#embed-object) (optional)
-* `reply` (string) - Message attached to the embed (optional)
 
 ## sendInfo(message, info, *title*, *footer*, *type*)
 Sends a info message (warning, error, success, etc.)

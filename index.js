@@ -45,16 +45,13 @@ class CordlrPlugin {
    * 
    * @param {object} message 
    * @param {object} embed
-   * @param {string} [reply=null]
    * 
    * @memberOf CordlrPlugin
    */
-  sendEmbed (message, embed, reply = null) {
+  sendEmbed (message, embed) {
     const channel = message.channel
 
-    channel.sendEmbed({
-      embed: embed
-    })
+    channel.sendEmbed(embed)
   }
 
   /**
@@ -64,20 +61,17 @@ class CordlrPlugin {
    * @param {array} fields 
    * @param {string} [title=null] 
    * @param {object} [footer=null] 
-   * @param {string} [reply=null] 
    * 
    * @memberOf CordlrPlugin
    */
-  sendFields (message, fields, title = null, footer = null, reply = null) {
+  sendFields (message, fields, title = null, footer = null) {
     const channel = message.channel
 
     channel.sendEmbed({
-      embed: {
-        title: title,
-        footer: footer,
-        fields: fields
-      }
-    }, reply)
+      title: title,
+      footer: footer,
+      fields: fields
+    })
   }
 
   /**
@@ -107,14 +101,14 @@ class CordlrPlugin {
         break
       default:
         color = this.colorToDecimal('#7289DA')
-
-      channel.sendEmbed({
-        title: title,
-        footer: footer,
-        color: color,
-        description: info
-      })
     }
+
+    channel.sendEmbed({
+      title: title,
+      footer: footer,
+      color: color,
+      description: info
+    })
   }
 
   /**
@@ -243,15 +237,16 @@ class CordlrPlugin {
   /**
    * Retrieves a role by its name
    * 
+   * @param {object} message
    * @param {string} name 
    * @returns {object}
    * 
    * @memberOf CordlrPlugin
    */
-  getRoleByName (name) {
+  getRoleByName (message, name) {
     const roles = this.getRoles(message)
-    for (role of roles) {
-      if (role.name === name) {
+    for (const role of roles) {
+      if (role[1].name === name) {
         return role
       }
     }
@@ -262,15 +257,16 @@ class CordlrPlugin {
   /**
    * Retrieves a list of members assigned to a role
    * 
+   * @param {object} message
    * @param {string} roleName 
    * @returns {array}
    * 
    * @memberOf CordlrPlugin
    */
-  getRoleMembers (roleName) {
-    const role = this.getRoleByName(roleName)
+  getRoleMembers (message, roleName) {
+    const role = this.getRoleByName(message, roleName)
     if (role) {
-      return role.members
+      return role[1].members
     }
 
     return false
@@ -279,6 +275,7 @@ class CordlrPlugin {
   /**
    * Returns boolean for the permissions checked for a role
    * 
+   * @param {object} message
    * @param {string} roleName 
    * @param {array} permissions 
    * @param {boolean} [explicit=false] 
@@ -286,10 +283,10 @@ class CordlrPlugin {
    * 
    * @memberOf CordlrPlugin
    */
-  roleHasPermissions (roleName, permissions, explicit = false) {
-    const role = this.getRoleByName(roleName)
+  roleHasPermissions (message, roleName, permissions, explicit = false) {
+    const role = this.getRoleByName(message, roleName)
     if (role) {
-      return role.hasPermissions(permissions, explicit)
+      return role[1].hasPermissions(permissions, explicit)
     }
 
     return false
@@ -298,16 +295,17 @@ class CordlrPlugin {
   /**
    * Sets a color to this role
    * 
+   * @param {object} message
    * @param {string} roleName 
    * @param {string} color 
    * @returns {objectPromise}
    * 
    * @memberOf CordlrPlugin
    */
-  setRoleColor (roleName, color) {
-    const role = this.getRoleByName(roleName)
+  setRoleColor (message, roleName, color) {
+    const role = this.getRoleByName(message, roleName)
     if (role) {
-      return role.setColor(color)
+      return role[1].setColor(color)
     }
 
     return false
@@ -316,16 +314,17 @@ class CordlrPlugin {
   /**
    * Sets a new name for this role
    * 
+   * @param {object} message
    * @param {string} roleName 
    * @param {string} newName 
    * @returns {objectPromise} 
    * 
    * @memberOf CordlrPlugin
    */
-  setRoleName (roleName, newName) {
-    const role = this.getRoleByName(roleName)
+  setRoleName (message, roleName, newName) {
+    const role = this.getRoleByName(message, roleName)
     if (role) {
-      return role.setName(newName)
+      return role[1].setName(newName)
     }
 
     return false
@@ -334,16 +333,17 @@ class CordlrPlugin {
   /**
    * Sets the visibility for the role in the sidebar
    * 
+   * @param {object} message
    * @param {string} roleName 
    * @param {boolean} visible 
    * @returns {objectPromise}
    * 
    * @memberOf CordlrPlugin
    */
-  setRoleVisibility (roleName, visible) {
-    const role = this.getRoleByName(roleName)
+  setRoleVisibility (message, roleName, visible) {
+    const role = this.getRoleByName(message, roleName)
     if (role) {
-      return role.setHoist(visible)
+      return role[1].setHoist(visible)
     }
 
     return false
@@ -352,16 +352,17 @@ class CordlrPlugin {
   /**
    * Sets role permissions via array of permission strings
    * 
+   * @param {object} message
    * @param {string} roleName 
    * @param {array} permissions 
    * @returns {objectPromise}
    * 
    * @memberOf CordlrPlugin
    */
-  setRolePermissions (roleName, permissions) {
-    const role = this.getRoleByName(roleName)
+  setRolePermissions (message, roleName, permissions) {
+    const role = this.getRoleByName(message, roleName)
     if (role) {
-      return role.setPermissions(permissions)
+      return role[1].setPermissions(permissions)
     }
 
     return false
