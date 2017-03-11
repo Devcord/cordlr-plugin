@@ -13,10 +13,22 @@ class CordlrPlugin {
     author.sendMessage(reply)
   }
 
-  sendEmbeds (message, reply, embeds) {
+  sendEmbed (message, reply, embeds) {
     message.reply(reply, {
-      embeds: embeds
+      embed: embed
     })
+  }
+
+  sendFields (message, fields, title = null, footer = null, reply = null) {
+    const channel = message.channel
+
+    channel.sendEmbed({
+      embed: {
+        title: title,
+        footer: footer,
+        fields: fields
+      }
+    }, reply)
   }
 
   embedField (name, value = '', inline = false) {
@@ -66,6 +78,76 @@ class CordlrPlugin {
       height: height,
       width: width
     }
+  }
+
+  getRoles (message) {
+    const guild = message.guild
+    return guild.roles
+  }
+
+  getRoleByName (name) {
+    const roles = this.getRoles(message)
+    for (role of roles) {
+      if (role.name === name) {
+        return role
+      }
+    }
+
+    return false
+  }
+
+  getRoleMembers (roleName) {
+    const role = this.getRoleByName(roleName)
+    if (role) {
+      return role.members
+    }
+
+    return false
+  }
+
+  roleHasPermissions (roleName, permissions, explicit = false) {
+    const role = this.getRoleByName(roleName)
+    if (role) {
+      return role.hasPermissions(permissions, explicit)
+    }
+
+    return false
+  }
+
+  setRoleColor (roleName, color) {
+    const role = this.getRoleByName(roleName)
+    if (role) {
+      return role.setColor(color)
+    }
+
+    return false
+  }
+
+  setRoleName (roleName, newName) {
+    const role = this.getRoleByName(roleName)
+    if (role) {
+      return role.setName(newName)
+    }
+
+    return false
+  }
+
+  setRoleVisibility (roleName, visible) {
+    const role = this.getRoleByName(roleName)
+    if (role) {
+      return role.setHoist(visible)
+    }
+
+    return false
+  }
+
+  setRolePermissions (roleName, permissions) {
+    const role = this.getRoleByName(roleName)
+    if (role) {
+      return role.setPermissions(permissions)
+    }
+
+    return false
   }
 }
 
