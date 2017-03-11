@@ -42,48 +42,4 @@ class MyPlugin extends CordlrPlugin {
 }
 ```
 
-More examples in the documentation (coming soon)
-
-## Short Docs
-
-#### sendReply
-
-**Parameters**
-* `message` - Discord Message Object
-* `reply` - Reply string
-
-```js
-CordlrPlugin.sendReply(message, 'My message')
-```
-
----
-
-#### sendPrivateReply
-
-**Parameters**
-* `message` - Discord Message Object
-* `reply` - Reply string
-
-```js
-CordlrPlugin.sendPrivateReply(message, 'My private message')
-```
-
----
-
-#### sendEmbeds
-
-**Parameters**
-* `message` - Discord Message Object
-* `reply` - Reply string
-* `embeds` - Array containing Discord embed objects
-
-```js
-CordlrPlugin.sendReply(message, 'My message', [
-  {
-    // embed data (see Discord API)
-  },
-  {
-    // embed data (see Discord API)
-  }
-])
-```
+More examples in the [documentation](docs/)

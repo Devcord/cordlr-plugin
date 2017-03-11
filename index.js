@@ -9,11 +9,63 @@ class CordlrPlugin {
   }
 
   sendPrivateReply (message, reply) {
-    // TODO: Add reply functionality for responding via private message
+    const author = message.author
+    author.sendMessage(reply)
   }
 
   sendEmbeds (message, reply, embeds) {
-    // TODO: Add reply functionality with embeds
+    message.reply(reply, {
+      embeds: embeds
+    })
+  }
+
+  embedField (name, value = '', inline = false) {
+    return {
+      name: name,
+      value: value,
+      inline: inline
+    }
+  }
+
+  embedAuthor (name, url = null, icon = null, proxyIcon = null) {
+    return {
+      name: name,
+      url: url,
+      icon_url: icon,
+      proxy_icon_url: proxyIcon
+    }
+  }
+
+  embedFooter (text, icon = null, proxyIcon = null) {
+    return {
+      text: text,
+      icon_url: icon,
+      proxy_icon_url: proxyIcon
+    }
+  }
+  
+  embedProvider (name, url = null) {
+    return {
+      name: name,
+      url: url
+    }
+  }
+
+  embedImage (url, proxyUrl, height = 100, width = 100) {
+    return {
+      url: url,
+      proxy_url: proxyUrl,
+      height: height,
+      width: width
+    }
+  }
+
+  embedVideo (url, height = 100, width = 100) {
+    return {
+      url: url,
+      height: height,
+      width: width
+    }
   }
 }
 
