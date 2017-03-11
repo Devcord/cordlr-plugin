@@ -367,6 +367,74 @@ class CordlrPlugin {
   }
 
   /**
+   * Changes the bot clients username
+   * 
+   * @param {string} username 
+   * @returns {objectPromise}
+   * 
+   * @memberOf CordlrPlugin
+   */
+  botChangeUsername (username) {
+    const client = this.bot.user
+    if (client) {
+      return client.setUsername(username)
+    }
+
+    return false
+  }
+
+  /**
+   * Changes the bot clients game
+   * 
+   * @param {string} gameTitle
+   * @returns {objectPromise}
+   * 
+   * @memberOf CordlrPlugin
+   */
+  botChangeGame (gameTitle) {
+    const client = this.bot.user
+    if (client) {
+      return client.setGame(gameTitle)
+    }
+
+    return false
+  }
+
+  /**
+   * Sets the bot client to AFK
+   * 
+   * @param {boolean} [isAfk=false] 
+   * @returns {objectPromise}
+   * 
+   * @memberOf CordlrPlugin
+   */
+  botSetAfk (isAfk = false) {
+    const client = this.bot.user
+    if (client) {
+      return client.setAFK(isAfk)
+    }
+
+    return false
+  }
+
+  /**
+   * Sets the bots Avatar to Base64 image or a BufferResolvable
+   * 
+   * @param {any} avatar 
+   * @returns 
+   * 
+   * @memberOf CordlrPlugin
+   */
+  botSetAvatar (avatar) {
+    const client = this.bot.user
+    if (client) {
+      return client.setAvatar(avatar)
+    }
+
+    return false
+  }
+
+  /**
    * Converts a hexadecimal color to a decimal interger
    * 
    * @param {string} color 
