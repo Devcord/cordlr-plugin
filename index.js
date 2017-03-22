@@ -1,6 +1,6 @@
 const hexToDec = require('hex-to-dec');
 
-class CordlrPlugin {
+module.exports = class CordlrPlugin {
   
   /**
    * Creates an instance of CordlrPlugin.
@@ -369,6 +369,34 @@ class CordlrPlugin {
   }
 
   /**
+   * Checks if the bot has a role(s) with the permission
+   * Use it with this.bot.on('ready', () => {})
+   * 
+   * @param {string} permission 
+   * @returns {boolean}
+   */
+  checkBotPermission (permission) {
+    // TODO This does not support multiple server
+    // FIXME This does not support multiple servers
+    const guilds = this.bot.guilds.array()
+    return guilds[0].members.get(this.bot.user.id).hasPermission(permission)
+  }
+
+  /**
+   * Check if the bot has a role(s) with the permissions
+   * Use it with this.bot.on('ready', () => {})
+   * 
+   * @param {array} permissions 
+   * @returns {boolean}
+   */
+  checkBotPermissions (permissions) {
+    // TODO This does not support multiple server
+    // FIXME This does not support multiple servers
+    const guilds = this.bot.guilds.array()
+    return guilds[0].members.get(this.bot.user.id).hasPermissions(permissions)
+  }
+
+  /**
    * Changes the bot clients username
    * 
    * @param {string} username 
@@ -437,7 +465,7 @@ class CordlrPlugin {
   }
 
   /**
-   * Converts a hexadecimal color to a decimal interger
+   * Converts a hexadecimal color to a decimal integer
    * 
    * @param {string} color 
    * @returns {int}
@@ -448,6 +476,232 @@ class CordlrPlugin {
     const hexValue = color.replace('#', '')
     return hexToDec(hexValue)
   }
-}
 
-module.exports = CordlrPlugin
+  /**
+   * ---------- Hooks ------------
+   */
+
+  /**
+   * Emitted whenever a guild member changes - i.e. new role, removed role, nickname
+   * 
+   * @param {function} callback (oldMember, newMember)
+   * 
+   * @memberOf CordlrPlugin
+   */
+  onMemberUpdate (callback) {
+    this.bot.on('guildMemberUpdate', (oldMember, newMember) => {
+      return callback(oldMember, newMember)
+    })
+  }
+
+  /**
+   * Emitted whenever a guild is updated - e.g. name change.
+   * 
+   * @param {function} callback (oldGuild, newGuild)
+   * 
+   * @memberOf CordlrPlugin
+   */
+  onGuildUpdate(callback) {
+    this.bot.on('guildUpdate', (oldGuild, newGuild) => {
+      return callback(oldGuild, newGuild)
+    })
+  }
+
+  /**
+   * Emitted whenever a message is deleted
+   * 
+   * @param {function} callback (message)
+   * 
+   * @memberOf CordlrPlugin
+   */
+  onMessageDelete(callback) {
+    this.bot.on('messageDelete', (message) => {
+      return callback(message)
+    })
+  }
+
+  /**
+   * Emitted whenever a message is updated - e.g. embed or content change.
+   * 
+   * @param {function} callback (oldMessage, newMessage) 
+   * 
+   * @memberOf CordlrPlugin
+   */
+  onMessageUpdate(callback) {
+    this.bot.on('messageUpdate', (oldMessage, newMessage) => {
+      return callback(oldMessage, newMessage)
+    })
+  }
+
+  /**
+   * Emitted whenever a reaction is added to a message.
+   * 
+   * @param {function} callback (messageReaction, user)
+   * 
+   * @memberOf CordlrPlugin
+   */
+  onReactionAdded(callback) {
+    this.bot.on('messageReactionAdd', (massageReaction, user) => {
+      return callback(massageReaction, user)
+    })
+  }
+
+  /**
+   * Emitted whenever a reaction is removed from a message.
+   * 
+   * @param {function} callback (messageReaction, user) 
+   * 
+   * @memberOf CordlrPlugin
+   */
+  onReactionRemoved(callback) {
+    this.bot.on('messageReactionRemove', (messageReaction, user) => {
+      return callback(messageReaction, user)
+    })
+  }
+
+  /**
+   * Emitted whenever a role is created.
+   * 
+   * @param {function} callback (role) 
+   * 
+   * @memberOf CordlrPlugin
+   */
+  onRoleCreate(callback) {
+    this.bot.on('roleCreate', (role) => {
+      return callback(role)
+    })
+  }
+
+  /**
+   * Emitted whenever a guild role is deleted.
+   * 
+   * @param {function} callback (role) 
+   * 
+   * @memberOf CordlrPlugin
+   */
+  onRoleDelete(callback) {
+    this.bot.on('roleDelete', (role) => {
+      return callback(role)
+    })
+  }
+
+  /**
+   * Emitted whenever a guild role is updated.
+   * 
+   * @param {function} callback (oldRole, newRole)
+   * 
+   * @memberOf CordlrPlugin
+   */
+  onRoleUpdate(callback) {
+    this.bot.on('roleUpdate', (oldRole, newRole) => {
+      return callback(oldRole, newRole)
+    })
+  }
+
+  /**
+   * Emitted whenever a user's details (e.g. username) are changed.
+   * 
+   * @param {function} callback (oldUser, newUser) 
+   * 
+   * @memberOf CordlrPlugin
+   */
+  onUserUpdate(callback) {
+    this.bot.on('userUpdate', (oldUser, newUser) => {
+      return callback(oldUser, newUser)
+    })
+  }
+
+  /**
+   * Emitted whenever a member is banned from a guild.
+   * 
+   * @param {function} callback (guild, user)
+   * 
+   * @memberOf CordlrPlugin
+   */
+  onUserBanned(callback) {
+    this.bot.on('guildBanAdd', (guild, user) => {
+      return callback(guild, user)
+    })
+  }
+
+  /**
+   * Emitted whenever a member is unbanned from a guild.
+   * 
+   * @param {function} callback (guild, user)
+   * 
+   * @memberOf CordlrPlugin
+   */
+  onUserUnbanned(callback) {
+    this.bot.on('guildBanRemove', (guild, user) => {
+      return callback(guild, user)
+    })
+  }
+
+  /**
+   * Emitted whenever the Client encounters a serious connection error
+   * 
+   * @param {function} callback (error)
+   * 
+   * @memberOf CordlrPlugin
+   */
+  onError(callback) {
+    this.bot.on('error', (error) => {
+      return callback(error)
+    })
+  }
+
+  /**
+   * Emitted whenever a channel is updated - e.g. name change, topic change.
+   * 
+   * @param {function} callback (oldChannel, newChannel) 
+   * 
+   * @memberOf CordlrPlugin
+   */
+  onChannelUpdate(callback) {
+    this.bot.on('channelUpdate', (oldChannel, newChannel) => {
+      return callback(oldChannel, newChannel)
+    })
+  }
+
+  /**
+   * Emitted whenever the pins of a channel are updated. 
+   * Due to the nature of the WebSocket event, 
+   * not much information can be provided easily here - you need to 
+   * manually check the pins yourself.
+   * 
+   * @param {function} callback (channel, time) 
+   * 
+   * @memberOf CordlrPlugin
+   */
+  onChannelPinsUpdate(callback) {
+    this.bot.on('channelPinsUpdate', (channel, time) => {
+      return callback(channel, time)
+    })
+  }
+
+  /**
+   * Emitted whenever a channel is deleted.
+   * 
+   * @param {function} callback (channel)
+   * 
+   * @memberOf CordlrPlugin
+   */
+  onChannelDelete(callback) {
+    this.bot.on('channelDelete', (channel) => {
+      return callback(channel)
+    })
+  }
+
+  /**
+   * Emitted whenever a channel is created.
+   * 
+   * @param {function} callback (channel) 
+   * 
+   * @memberOf CordlrPlugin
+   */
+  onChannelAdded(callback) {
+    this.bot.on('channelCreate', (channel) => {
+      return callback(channel)
+    })
+  }
+}
