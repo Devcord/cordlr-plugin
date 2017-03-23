@@ -494,6 +494,30 @@ module.exports = class CordlrPlugin {
   //------------ Hooks ------------
 
   /**
+   * Emitted whenever a user joins a guild.
+   * 
+   * @param {function} callback (member) 
+   * 
+   * @memberOf CordlrPlugin
+   */
+  onMemberAdd (callback) {
+    this.bot.on('guildMemberAdd', (member) => {
+      return callback(member)
+    })
+  }
+
+  /**
+   * guildMemberRemove
+   * 
+   * @param {any} callback 
+   */
+  onMemberRemove (callback) {
+    this.bot.on('guildMemberRemove', (member) => {
+      return callback(member)
+    })
+  }
+
+  /**
    * Emitted whenever a guild member changes - i.e. new role, removed role, nickname
    * 
    * @param {function} callback (oldMember, newMember)
