@@ -491,9 +491,7 @@ module.exports = class CordlrPlugin {
     return hexToDec(hexValue)
   }
 
-  /**
-   * ---------- Hooks ------------
-   */
+  //------------ Hooks ------------
 
   /**
    * Emitted whenever a guild member changes - i.e. new role, removed role, nickname
