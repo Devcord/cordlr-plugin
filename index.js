@@ -397,6 +397,20 @@ module.exports = class CordlrPlugin {
   }
 
   /**
+   * Will check and return the missing permissions
+   * Use it with this.bot.on('ready', () => {})
+   *  
+   * @param {array} permissions 
+   * @returns {array} missingPermissions
+   */
+  checkBotMissingPermissions(permissions) {
+    // TODO This does not support multiple server
+    // FIXME This does not support multiple servers
+    const guilds = this.bot.guilds.array()
+    return guilds[0].members.get(this.bot.user.id).missingPermissions(permissions)
+  }
+
+  /**
    * Changes the bot clients username
    * 
    * @param {string} username 
