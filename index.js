@@ -543,6 +543,21 @@ module.exports = class CordlrPlugin {
   }
 
   /**
+   * Emitted whenever a new Direct message
+   *
+   * @param {function} callback (message)
+   *
+   * @memberOf CordlrPlugin
+   */
+  onDirectMessage (callback) {
+    this.bot.on('message', (message) => {
+      if (message.channel.type === 'dm') {
+        return callback(message)
+      }
+    })
+  }
+
+  /**
    * Emitted whenever a message is deleted
    *
    * @param {function} callback (message)
