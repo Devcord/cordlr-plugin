@@ -36,7 +36,7 @@ module.exports = class CordlrPlugin {
    */
   sendPrivateReply (message, reply) {
     const author = message.author
-    author.sendMessage(reply)
+    author.send(reply)
   }
 
   /**
@@ -50,7 +50,7 @@ module.exports = class CordlrPlugin {
   sendEmbed (message, embed) {
     const channel = message.channel
 
-    channel.sendEmbed(embed)
+    channel.send({embed: embed})
   }
 
   /**
@@ -66,10 +66,12 @@ module.exports = class CordlrPlugin {
   sendFields (message, fields, title = null, footer = null) {
     const channel = message.channel
 
-    channel.sendEmbed({
-      title: title,
-      footer: footer,
-      fields: fields
+    channel.send({
+      embed: {
+        title: title,
+        footer: footer,
+        fields: fields
+      }
     })
   }
 
@@ -102,11 +104,13 @@ module.exports = class CordlrPlugin {
         color = this.colorToDecimal('#7289DA')
     }
 
-    channel.sendEmbed({
-      title: title,
-      footer: footer,
-      color: color,
-      description: info
+    channel.send({
+      embed: {
+        title: title,
+        footer: footer,
+        color: color,
+        description: info
+      }
     })
   }
 
@@ -282,10 +286,10 @@ module.exports = class CordlrPlugin {
    *
    * @memberOf CordlrPlugin
    */
-  roleHasPermissions (message, roleName, permissions, explicit = false) {
+  roleHasPermissions (message, roleName, permissions) {
     const role = this.getRoleByName(message, roleName)
     if (role) {
-      return role[1].hasPermissions(permissions, explicit)
+      return role[1].hasPermission(permissions)
     }
 
     return false
@@ -379,20 +383,6 @@ module.exports = class CordlrPlugin {
     // FIXME This does not support multiple servers
     const guilds = this.bot.guilds.array()
     return guilds[0].members.get(this.bot.user.id).hasPermission(permission)
-  }
-
-  /**
-   * Check if the bot has a role(s) with the permissions
-   * Use it with this.bot.on('ready', () => {})
-   *
-   * @param {array} permissions
-   * @returns {boolean}
-   */
-  checkBotPermissions (permissions) {
-    // TODO This does not support multiple server
-    // FIXME This does not support multiple servers
-    const guilds = this.bot.guilds.array()
-    return guilds[0].members.get(this.bot.user.id).hasPermissions(permissions)
   }
 
   /**
